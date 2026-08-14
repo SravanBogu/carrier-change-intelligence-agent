@@ -1,7 +1,7 @@
-from typing import Any
-
 from fastapi import FastAPI
-from pydantic import BaseModel
+
+from app.models import AnalyzeResponse, CarrierPayloadRequest
+from app.normalizer import normalize_claim
 
 
 # FastAPI application metadata appears in Swagger/OpenAPI documentation.
@@ -11,14 +11,8 @@ app = FastAPI(
         "A code-first demonstration of carrier payload normalization, "
         "grounded knowledge retrieval, and safe human-review fallback."
     ),
-    version="0.1.0",
+    version="0.2.0",
 )
-
-
-# Accepts a carrier identifier and its source-specific JSON payload.
-class CarrierPayloadRequest(BaseModel):
-    carrier: str
-    payload: dict[str, Any]
 
 
 # Simple endpoint used to confirm that the API is running.
@@ -38,11 +32,20 @@ def health() -> dict[str, str]:
     }
 
 
-# Receives a validated payload. Normalization will be added in the next feature.
-@app.post("/analyze")
-def analyze_payload(request: CarrierPayloadRequest) -> dict[str, Any]:
-    return {
-        "carrier": request.carrier,
-        "received_payload": request.payload,
-        "message": "Payload received. Field normalization will be added next.",
-    }
+# Validates the request, normalizes carrier fields, and returns a typed response.
+@app.post("/analyze", response_model=AnalyzeResponse)
+def analyze_payload(request: CarrierPayloadRequest) -> AnalyzeResponse:
+    normalized_claim = normalize_claim(
+        carrier=request.carrier,
+        payload=request.payload,
+    )
+
+    requires_human_review = len(normalized_claim.warnings) > 0
+
+    return AnalyzeResponse(
+        carrier=request.carrier,
+        normalized_claim=normalized_claim,
+        warnings=normalized_claim.warnings,
+        requires_human_review=requires_human_review,
+        message="Carrier payload normalized successfully.",
+    )
