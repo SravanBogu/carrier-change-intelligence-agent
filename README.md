@@ -193,11 +193,10 @@ From the project root with the virtual environment activated:
 python -m pytest -q
 ```
 
-Expected output:
+The suite includes:
 
-```text
-6 passed
-```
+- Unit tests for field alias mapping, invalid dates, conflicts, and unmapped fields
+- API endpoint tests for a successful request, human-review behavior, and request validation
 
 ## Development notes
 
@@ -208,7 +207,7 @@ Expected output:
 
 ## Roadmap
 
-- Add FastAPI endpoint tests using `TestClient`
+- Add API test coverage reporting and minimum coverage thresholds
 - Add structured logging and correlation IDs
 - Add configuration-driven carrier alias maps
 - Add authenticated API access and production deployment configuration
