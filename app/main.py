@@ -35,17 +35,21 @@ def health() -> dict[str, str]:
 # Validates the request, normalizes carrier fields, and returns a typed response.
 @app.post("/analyze", response_model=AnalyzeResponse)
 def analyze_payload(request: CarrierPayloadRequest) -> AnalyzeResponse:
-    normalized_claim = normalize_claim(
+    normalized_claim, warnings = normalize_claim(
         carrier=request.carrier,
         payload=request.payload,
     )
 
-    requires_human_review = len(normalized_claim.warnings) > 0
+    requires_human_review = bool(warnings)
 
     return AnalyzeResponse(
         carrier=request.carrier,
         normalized_claim=normalized_claim,
-        warnings=normalized_claim.warnings,
+        warnings=warnings,
         requires_human_review=requires_human_review,
-        message="Carrier payload normalized successfully.",
+        message=(
+            "Carrier payload normalized successfully."
+            if not warnings
+            else "Carrier payload normalized with warnings and requires human review."
+        ),
     )

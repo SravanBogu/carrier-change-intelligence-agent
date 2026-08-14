@@ -1,6 +1,6 @@
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class CarrierPayloadRequest(BaseModel):
@@ -15,7 +15,6 @@ class NormalizedClaim(BaseModel):
     date_of_loss: str | None = None
     date_reported: str | None = None
     loss_type: str | None = None
-    warnings: list[str] = Field(default_factory=list)
 
 
 class AnalyzeResponse(BaseModel):

@@ -27,7 +27,7 @@ FIELD_ALIASES = {
 def normalize_claim(
     carrier: str,
     payload: dict[str, Any],
-) -> NormalizedClaim:
+) -> tuple[NormalizedClaim, list[str]]:
     normalized: dict[str, Any] = {}
     warnings: list[str] = []
 
@@ -54,11 +54,12 @@ def normalize_claim(
                 warnings=warnings,
             )
 
-    return NormalizedClaim(
+    normalized_claim = NormalizedClaim(
         carrier=carrier,
-        warnings=warnings,
         **normalized,
     )
+
+    return normalized_claim, warnings
 
 
 def normalize_date(
