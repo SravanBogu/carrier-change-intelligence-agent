@@ -179,3 +179,31 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Local environment configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Visual Studio Code local workspace settings
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local logs and traces
+logs/
+*.log
+
+# Application Insights local telemetry
+applicationinsights.json
+
+# Azure Functions local settings, if added later
+local.settings.json
+
+# Azure Developer CLI local environment files, if added later
+.azure/
