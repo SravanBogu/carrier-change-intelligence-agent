@@ -1,4 +1,4 @@
-# Carrier Change Intelligence Agent - Requirements
+# Carrier Change Intelligence Agent API - Requirements
 
 ## Business problem
 

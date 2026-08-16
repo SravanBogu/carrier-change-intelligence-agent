@@ -6,7 +6,7 @@ from app.normalizer import normalize_claim
 
 # FastAPI application metadata appears in Swagger/OpenAPI documentation.
 app = FastAPI(
-    title="Carrier Change Intelligence Agent",
+    title="Carrier Change Intelligence Agent API",
     description=(
         "A code-first demonstration of carrier payload normalization, "
         "grounded knowledge retrieval, and safe human-review fallback."
@@ -19,7 +19,7 @@ app = FastAPI(
 @app.get("/")
 def home() -> dict[str, str]:
     return {
-        "message": "Carrier Change Intelligence Agent is running."
+        "message": "Carrier Change Intelligence Agent API is running."
     }
 
 
