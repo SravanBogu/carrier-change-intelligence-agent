@@ -1,6 +1,6 @@
 # Architecture Decisions
 
-This document records the key design choices for the Carrier Change Intelligence Agent.
+This document records the key design choices for the Carrier Change Intelligence Agent API.
 
 **Version:** 0.1  
 **Last updated:** 2026-08-13  

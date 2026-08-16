@@ -1,4 +1,4 @@
-# Carrier Change Intelligence Agent
+# Carrier Change Intelligence Agent API
 
 A code-first FastAPI service that normalizes changing insurance-carrier claim payloads into a canonical schema, identifies data-quality issues, and flags submissions that require human review.
 
